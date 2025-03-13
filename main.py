@@ -1,7 +1,7 @@
 import cv2
 import face_recognition
 from camera import camera_init, capture_frame
-from face_recognition_model import load_known_faces_from_folder, detect_faces, recognise_faces
+from face_recognition_model import load_known_faces_from_folder, detect_faces, recognise_faces, save_new_face
 import time 
 # import threading
 
