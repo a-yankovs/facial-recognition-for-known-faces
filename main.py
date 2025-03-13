@@ -1,4 +1,4 @@
-# main file of this project - runs the face detector program 
+# Main file of this project - runs the face detector program 
 import cv2
 import face_recognition
 from camera import camera_init, capture_frame
@@ -6,10 +6,10 @@ from face_recognition_model import load_known_faces_from_folder, detect_faces, r
 import time 
 # import threading
 
-# empty list which will contain recognised faces 
+# Empty list which will contain recognised faces 
 recognized_faces = []
 
-# function which runs facial recognition, using methods from camera and face_recognition_model
+# Function which runs facial recognition, using methods from camera and face_recognition_model
 def run_facial_recognition():
     cam = camera_init()
     known_faces, known_face_names = load_known_faces_from_folder("known_faces")
@@ -19,13 +19,13 @@ def run_facial_recognition():
         if frame is None:
             break
             
-        #find where each face is in the frame (find its coordinates)
+        # Find where each face is in the frame (find its coordinates)
         face_locations = face_recognition.face_locations(frame) 
         
-        #  use the known faces to find known faces in the frame  
+        #  Use the known faces to find known faces in the frame  
         names = recognise_faces(frame, known_faces, face_locations, known_face_names)
         
-        # draw bounding rectangle around each face detected in the video 
+        # Draw bounding rectangle around each face detected in the video 
         for (top, right, bottom, left), name in zip(face_locations, names):
             if name not in recognized_faces: 
                 print(name + " recognised! \n" )
