@@ -2,6 +2,8 @@ import cv2
 import face_recognition
 import os 
 
+# Function which loads the known faces from the given folder 
+# Returns two lists: known faces and their corresponding names 
 def load_known_faces_from_folder(directory_path = "known_faces_folder"):
     known_faces = []
     known_face_names = []
@@ -12,15 +14,17 @@ def load_known_faces_from_folder(directory_path = "known_faces_folder"):
             known_face = face_recognition.load_image_file(image_path)
             # 128D feature vector extracted from the face 
             known_encoding = face_recognition.face_encodings(known_face)
-        
-            if known_encoding:  # If faces are found in the image
+
+            # If faces are found in the image
+            if known_encoding: 
                 known_faces.append(known_encoding[0])
                  # Use the filename as the name to store in 
                 known_face_names.append(filename.split(".")[0]) 
 
     return known_faces, known_face_names
 
-
+# Function which detects faces in each frame
+# Returns the recognised faces in the frame
 def detect_faces(frame): 
     # converts to grayscale - easier to process for Haar Cascades 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -37,10 +41,13 @@ def detect_faces(frame):
 
     return faces
 
+# Function which recognises faces in each frame 
+# Returns a list of names which have been recognised - implemented to be used in the future 
 def recognise_faces(frame, known_faces, face_locations, known_face_names): 
     face_encodings = face_recognition.face_encodings(frame, face_locations)
 
     names = []
+    # compares 128 - dimensional vectors in face_encodings in known_faces
     for face_encoding in face_encodings:
         matches = face_recognition.compare_faces(known_faces, face_encoding)
         name = "Unknown"
@@ -50,15 +57,16 @@ def recognise_faces(frame, known_faces, face_locations, known_face_names):
             name = known_face_names[index]
 
         names.append(name)
-    
     return names
 
+# Function to save a previously-unrecognised face into the knonw_faces folder 
 def save_new_face(frame, face_location, name, directory_path = "known_faces"):
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
     top, right, bottom, left = face_location
     face_image = frame[top:bottom, left:right]
+    # convert to RGB for easier processing in the future 
     face_image = cv2.cvtColor(face_image, cv2.COLOR_BGR2RGB)
 
     file_path = os.path.join(directory_path, f"{name}.jpg")
