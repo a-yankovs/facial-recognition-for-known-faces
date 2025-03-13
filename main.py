@@ -22,7 +22,12 @@ def run_facial_recognition():
         for (top, right, bottom, left), name in zip(face_locations, names):
             cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
             cv2.putText(frame, name, (right - 6, bottom - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
-
+            if name == "Unknown": 
+                print("Uh-oh! Unknown face detected!\n")
+                timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+                save_new_face(frame, (top, right, bottom, left), timestamp, directory_path = "known_faces")
+                known_faces, known_face_names = load_known_faces_from_folder("known_faces")
+                print("No worries, though! We saved the new face as the current time!")
     # Multi-threading: doesn't work YET!
             # if name == "Unknown":
             #     print("Unknown face detected! Press 's' to save or any other key to continue.")
