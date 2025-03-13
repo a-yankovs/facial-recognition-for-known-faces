@@ -52,3 +52,15 @@ def recognise_faces(frame, known_faces, face_locations, known_face_names):
         names.append(name)
     
     return names
+
+def save_new_face(frame, face_location, name, directory_path = "known_faces"):
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
+
+    top, right, bottom, left = face_location
+    face_image = frame[top:bottom, left:right]
+    face_image = cv2.cvtColor(face_image, cv2.COLOR_BGR2RGB)
+
+    file_path = os.path.join(directory_path, f"{name}.jpg")
+    cv2.imwrite(file_path, face_image)
+    print(f"New face saved as {file_path}")
