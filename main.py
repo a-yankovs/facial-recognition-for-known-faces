@@ -21,6 +21,10 @@ def run_facial_recognition():
         names = recognise_faces(frame, known_faces, face_locations, known_face_names)
         # draw bounding rectangle around each face detected in the video 
         for (top, right, bottom, left), name in zip(face_locations, names):
+            if name not in recognized_faces: 
+                print(name + " recognised! \n" )
+                recognized_faces.append(name)
+                
             cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
             cv2.putText(frame, name, (right - 6, bottom - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
             if name == "Unknown": 
