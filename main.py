@@ -27,7 +27,7 @@ def run_facial_recognition():
                 timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
                 save_new_face(frame, (top, right, bottom, left), timestamp, directory_path = "known_faces")
                 known_faces, known_face_names = load_known_faces_from_folder("known_faces")
-                print("No worries, though! We saved the new face as the current time!")
+                print("No worries, though! We saved the new face as time that it was first detected!")
     # Multi-threading: doesn't work YET!
             # if name == "Unknown":
             #     print("Unknown face detected! Press 's' to save or any other key to continue.")
