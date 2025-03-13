@@ -1,7 +1,7 @@
 import cv2 
 
-# function which initialises camera and sets its resolution and fps
-# returns the new camera object 
+# Function which initialises camera and sets its resolution and fps
+# Returns the new camera object 
 def camera_init():
     cam = cv2.VideoCapture(0)
     if not cam.isOpened():
@@ -15,8 +15,8 @@ def camera_init():
     cam.set(cv2.CAP_PROP_FPS, 30)
     return cam
 
-# contiuously captures the current frame of the camera  
-# returns the captured frame 
+# Contiuously captures the current frame of the camera  
+# Returns the captured frame 
 def capture_frame(cam):
     # ret - boolean - whether the frame was captured successfully 
     # frame - the camptured frame itself - npy array 
